@@ -1,0 +1,287 @@
+<UserControl x:Class="MyAnimeViewer.Windows.UserControls.AL_BrowseAnime"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyAnimeViewer.Windows.UserControls"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
+             xmlns:Utility="clr-namespace:MyAnimeViewer.Utility"
+             xmlns:Enums="clr-namespace:MyAnimeViewer.Enums.AniList"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AppbarButton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Rectangle Width="{TemplateBinding MinWidth}" Height="{TemplateBinding MinHeight}" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ListViewDropDown" TargetType="ListViewItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Button Tag="{TemplateBinding Content}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Cursor="Hand" Click="ListViewDropDownItem_Click">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <TextBlock Name="tb_ContentText" Foreground="#0c597b" FontSize="11" Text="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+
+                                        <ControlTemplate.Triggers>
+                                            <EventTrigger RoutedEvent="MouseEnter">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetName="tb_ContentText"
+                                                                                Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#00a8ff" 
+                                                                                Duration="0:0:0.15" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetName="tb_ContentText"
+                                                                                Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#0c597b" 
+                                                                                Duration="0:0:0.15" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Background="#F8F8FB">
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource Montserrat}" FontWeight="Bold" Text="Browse Anime" 
+                       TextAlignment="Center" VerticalAlignment="Center" FontSize="19" Foreground="#00a8ff" />
+        </Grid>
+
+        <!-- Browse Parameters -->
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <!-- Year -->
+            <Grid Name="grd_Year" Background="#EBEBF1" Height="55" Cursor="Hand" MouseDown="BrowseParamItem_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Year" Style="{StaticResource Montserrat}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0" />
+                <TextBlock Grid.Column="0" Name="tb_YearSelectedItem" Style="{StaticResource Montserrat}" FontWeight="Bold" Foreground="#0c597b" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Name="btn_RemoveYear" Style="{DynamicResource AppbarButton}" Content="{DynamicResource appbar_axis_x_letter}" 
+                        Width="20" Height="20" MinWidth="10" MinHeight="10" Foreground="#0c597b" Click="ClearSelection_Click" Visibility="Hidden" />
+            </Grid>
+
+            <ListView Name="lv_Year" Visibility="Collapsed" ItemContainerStyle="{StaticResource ListViewDropDown}" Margin="10,0" />
+
+            <!-- Season -->
+            <Grid Name="grd_Season" Background="#F8F8FB" Height="55" Cursor="Hand" MouseDown="BrowseParamItem_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Season" Style="{StaticResource Montserrat}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0" />
+                <TextBlock Grid.Column="0" Name="tb_SeasonSelectedItem" Style="{StaticResource Montserrat}" FontWeight="Bold" Foreground="#0c597b" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Name="btn_RemoveSeason" Style="{DynamicResource AppbarButton}" Content="{DynamicResource appbar_axis_x_letter}" 
+                        Width="20" Height="20" MinWidth="10" MinHeight="10" Foreground="#0c597b" Click="ClearSelection_Click" Visibility="Hidden" />
+            </Grid>
+
+            <ListView Name="lv_Season" ItemsSource="{Binding Source={Utility:EnumBindingSource {x:Type Enums:Season}}}" 
+                      Visibility="Collapsed" ItemContainerStyle="{StaticResource ListViewDropDown}" Margin="10,0" />
+
+            <!-- Status -->
+            <Grid Name="grd_Status" Background="#EBEBF1" Height="55" Cursor="Hand" MouseDown="BrowseParamItem_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Status" Style="{StaticResource Montserrat}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0" />
+                <TextBlock Grid.Column="0" Name="tb_StatusSelectedItem" Style="{StaticResource Montserrat}" FontWeight="Bold" Foreground="#0c597b" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Name="btn_RemoveStatus" Style="{DynamicResource AppbarButton}" Content="{DynamicResource appbar_axis_x_letter}" 
+                        Width="20" Height="20" MinWidth="10" MinHeight="10" Foreground="#0c597b" Click="ClearSelection_Click" Visibility="Hidden" />
+            </Grid>
+
+            <ListView Name="lv_Status" ItemsSource="{Binding Source={Utility:EnumBindingSource {x:Type Enums:AL_AnimeStatus}}}"
+                      Visibility="Collapsed" ItemContainerStyle="{StaticResource ListViewDropDown}" Margin="10,0" />
+
+            <!-- Type -->
+            <Grid Name="grd_Type" Background="#F8F8FB" Height="55" Cursor="Hand" MouseDown="BrowseParamItem_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Type" Style="{StaticResource Montserrat}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0" />
+                <TextBlock Grid.Column="0" Name="tb_TypeSelectedItem" Style="{StaticResource Montserrat}" FontWeight="Bold" Foreground="#0c597b" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Name="btn_RemoveType" Style="{DynamicResource AppbarButton}" Content="{DynamicResource appbar_axis_x_letter}" 
+                        Width="20" Height="20" MinWidth="10" MinHeight="10" Foreground="#0c597b" Click="ClearSelection_Click" Visibility="Hidden" />
+            </Grid>
+
+            <ListView Name="lv_Type" ItemsSource="{Binding Source={Utility:EnumBindingSource {x:Type Enums:Season}}}" Visibility="Collapsed"
+                      ItemContainerStyle="{StaticResource ListViewDropDown}" Margin="10,0" />
+
+            <!-- Sort -->
+            <Grid Name="grd_Sort" Background="#EBEBF1" Height="55" Cursor="Hand" MouseDown="BrowseParamItem_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Sort" Style="{StaticResource Montserrat}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0" />
+                <TextBlock Grid.Column="0" Name="tb_SortSelectedItem" Style="{StaticResource Montserrat}" Text="Score"
+                           FontWeight="Bold" Foreground="#0c597b" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Name="btn_RemoveSort" Style="{DynamicResource AppbarButton}" Content="{DynamicResource appbar_axis_x_letter}" 
+                        Width="20" Height="20" MinWidth="10" MinHeight="10" Foreground="#0c597b" Click="ClearSelection_Click" />
+            </Grid>
+
+            <ListView Name="lv_Sort" Visibility="Collapsed" ItemContainerStyle="{StaticResource ListViewDropDown}" Margin="10,0" />
+
+            <!-- Genres -->
+            <TextBlock Text="Genres" Style="{StaticResource Montserrat}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" />
+            <ScrollViewer>
+                <ListView Name="lv_Genres" ItemsSource="{Binding Source={Utility:EnumBindingSource {x:Type Enums:AL_Genres}}}" Loaded="lv_Genres_Loaded">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ToggleButton Tag="{TemplateBinding Content}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" IsChecked="{x:Null}"
+                                                      IsThreeState="True"
+                                                      Click="GenreItem_Click"
+                                                      Foreground="#0c597b">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Rectangle Width="8" Height="8" VerticalAlignment="Center" Margin="5,0"
+                                                                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                        <TextBlock Name="tb_ContentText" VerticalAlignment="Center" FontSize="11"
+                                                                   Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}"
+                                                                   Text="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}" />
+                                                    </StackPanel>
+
+                                                    <ControlTemplate.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True" />
+                                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="{x:Null}" />
+                                                            </MultiDataTrigger.Conditions>
+                                                            <MultiDataTrigger.EnterActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <ColorAnimation Storyboard.TargetProperty="(ToggleButton.Foreground).(SolidColorBrush.Color)"
+                                                                                        To="#00a8ff" 
+                                                                                        Duration="0:0:0.15" />
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </MultiDataTrigger.EnterActions>
+                                                            <MultiDataTrigger.ExitActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                                                        To="#0c597b" 
+                                                                                        Duration="0:0:0.15" />
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </MultiDataTrigger.ExitActions>
+                                                        </MultiDataTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+        
+        <Grid Grid.Column="1" Grid.Row="0" Background="#F8F8FB">
+            <TextBox x:Name="tb_Search" Height="30" Foreground="#00a8ff" TextAlignment="Center" FontSize="16" VerticalAlignment="Center" 
+                     Text="Search Anime" BorderThickness="0" Background="#F8F8FB" KeyUp="tb_Search_KeyUp"
+                     Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}, Mode=FindAncestor}}" />
+        </Grid>
+
+        <ItemsControl Grid.Column="1" Grid.Row="1" x:Name="ic_Browse">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Canvas Width="150" Height="215" Margin="5,5" Cursor="Hand" MouseDown="AnimeItem_MouseDown">
+                        <!-- Background Image -->
+                        <Image Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" 
+                                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}"
+                                   x:Name="img_Background"
+                                   Source="{Binding LargeImageURL}" 
+                                   Tag="{Binding ID}"
+                                   Stretch="Fill" />
+
+                        <!-- Background Gradient -->
+                        <Canvas Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" 
+                                                            Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}">
+                            <Canvas.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop x:Name="BackgroundGradientStop" Offset="0" Color="#00FFFFFF"/>
+                                    <GradientStop Offset="1" Color="#BF000000" />
+                                </LinearGradientBrush>
+                            </Canvas.Background>
+                        </Canvas>
+
+                        <!-- Title -->
+                        <TextBlock x:Name="RelationType" Width="130" Canvas.Left="10" Canvas.Right="10" Canvas.Bottom="25" Text="{Binding TitleRomaji}" FontSize="16" Foreground="White" 
+                                       TextAlignment="Left" TextWrapping="Wrap" />
+
+                        <Grid Canvas.Bottom="5" Width="130" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="43" />
+                                <ColumnDefinition Width="43" />
+                                <ColumnDefinition Width="43" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Type}" Foreground="#53c4ff" Width="43" TextAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding AverageScore}" Foreground="#53c4ff" HorizontalAlignment="Center" Width="43" TextAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="{Binding Popularity}" Foreground="#53c4ff" HorizontalAlignment="Center" Width="43" TextAlignment="Center" />
+                        </Grid>
+                    </Canvas>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

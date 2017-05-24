@@ -1,0 +1,109 @@
+﻿<Controls:MetroWindow x:Class="MyAnimeViewer.Windows.LoginWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:mav="clr-namespace:MyAnimeViewer"
+                      xmlns:LoginControls="clr-namespace:MyAnimeViewer.Windows.UserControls.LoginControls"
+                      BorderThickness="1" BorderBrush="DarkGray"
+                      ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="False"
+                      Title="MyAnimeViewer" Height="389" Width="300">
+    
+    <!-- AniList Flyout -->
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="fo_AniList" Height="330" Width="300" Theme="Light">
+                <StackPanel>
+                    <Image Source="/MyAnimeViewer;component/Resources/AniList_logo.png" Stretch="Uniform" Width="150" Height="100"/>
+                    <StackPanel Name="sp_ALLoggingIn" Margin="0,35" Visibility="Collapsed">
+                        <TextBlock Text="Logging in..." Margin="0,5" HorizontalAlignment="Center" />
+                        <Controls:ProgressRing Name="pr_LoggingIn" IsActive="False" />
+                    </StackPanel>
+                    <StackPanel Name="sp_ALLogin" Margin="0,35">
+                        <TextBox Name="tb_AuthorizationPin" Width="180" Margin="0,5" Visibility="Collapsed" />
+                        <Button Name="btn_AniList_Authorize" Content="Authorize MyAnimeViewer" Width="180" Height="30" Click="btn_AniList_Authorize_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Controls:Flyout>
+
+            <Controls:Flyout Name="fo_MyAnimeList" Position="Right" Height="330" Width="300" Theme="Light">
+                <StackPanel>
+                    <Image Source="/MyAnimeViewer;component/Resources/MyAnimeList_logo.png" Stretch="Uniform" Height="76" Width="200"/>
+                    <TextBlock Text="This feature is currently unavailable... Please login with AniList to be able to properly use MyAnimeViewer." TextWrapping="Wrap" />
+                    <Label />
+                </StackPanel>
+            </Controls:Flyout>
+
+            <Controls:Flyout x:Name="fo_Crunchyroll" Height="330" Width="300" Theme="Light" CloseButtonVisibility="Collapsed">
+                <LoginControls:CR_Login />
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <Button Click="AniList_Click" Height="76" Width="215" Margin="0,0,0,5">
+                <Image Source="/MyAnimeViewer;component/Resources/AniList_logo.png" Stretch="Uniform" Height="76" Width="200" />
+            </Button>
+            <Button Click="MyAnimeList_Click" Height="76" Width="215">
+                <Image Source="/MyAnimeViewer;component/Resources/MyAnimeList_logo.png" Stretch="Uniform" Height="76" Width="200"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+    
+    <!-- OLD
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="fo_LoggingIn" CloseButtonVisibility="Hidden" AnimateOpacity="True" Width="300" Height="195" Theme="Light">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Logging in..." FontSize="25" FontWeight="Bold" />
+                    <Controls:ProgressRing Foreground="{DynamicResource AccentColorBrush}"/>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    
+    <Grid>
+        <StackPanel>
+            <TextBlock>
+                <Hyperlink TextDecorations="None" NavigateUri="http://myanimelist.net/" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Image Source="/MyAnimeViewer;component/Resources/MyAnimeList_logo.png" Stretch="Uniform"  Height="135" Width="291"/>
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock Name="tb_ErrorMessage" Foreground="Red" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,-20,0,0"/>
+            <Label HorizontalAlignment="Center" Margin="0, 0, 0,0">
+                <TextBlock Text="LOGIN" FontWeight="Bold" FontSize="25" TextDecorations="Underline"/>
+            </Label>
+            <StackPanel Margin="0,16,0,0" Width="250">
+                <TextBox Name="tb_Email" Controls:TextBoxHelper.Watermark="Username" TabIndex="0"/>
+                <PasswordBox Name="tb_Password" Controls:TextBoxHelper.Watermark="Password"
+                             Margin="0,5,0,0" TabIndex="1"/>
+                <DockPanel Margin="0,5,0,0">
+                    <CheckBox Name="cb_RememberLogin" Content="Remember me" IsChecked="True"
+                              Checked="cb_RememberLogin_Checked"
+                              Unchecked="cb_RememberLogin_Unchecked" TabIndex="2" />
+                    <Button Name="btn_Login" Content="Login" Margin="16,0,0,0" Click="btn_Login_Click" 
+                            IsDefault="True" TabIndex="3"/>
+                </DockPanel>
+                <TextBlock>
+                    <Bold>
+                        <Run Text="Forgot your password?"/>
+                    </Bold>
+                    <LineBreak/>
+                    <Run Text="click"/>
+                    <Hyperlink NavigateUri="http://myanimelist.net/password.php?from=%2F"
+                               RequestNavigate="Hyperlink_RequestNavigate">
+                        here
+                    </Hyperlink>
+                    <Run Text="to reset your password."/>
+                </TextBlock>
+                
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,15,0,0">
+                    <Hyperlink NavigateUri="http://myanimelist.net/register.php?from=%2F"
+                               RequestNavigate="Hyperlink_RequestNavigate">
+                        Register
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </Grid>-->
+</Controls:MetroWindow>
