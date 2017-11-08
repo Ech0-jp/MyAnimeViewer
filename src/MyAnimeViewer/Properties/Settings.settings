@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MyAnimeViewer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ExistingSetting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Used for testing purposes...</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

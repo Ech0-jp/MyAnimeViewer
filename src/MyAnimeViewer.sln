@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAnimeViewer", "MyAnimeViewer\MyAnimeViewer.csproj", "{2F62176C-0865-41A3-BC6E-736A43951632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAnimeViewerInterfaces", "MyAnimeViewerInterfaces\MyAnimeViewerInterfaces.csproj", "{AFEC893A-366A-49EE-84E4-BF9BD2BECA04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AniList", "AniList\AniList.csproj", "{FF1DA007-018E-4F34-8B92-355C9B66840E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F62176C-0865-41A3-BC6E-736A43951632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F62176C-0865-41A3-BC6E-736A43951632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F62176C-0865-41A3-BC6E-736A43951632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F62176C-0865-41A3-BC6E-736A43951632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFEC893A-366A-49EE-84E4-BF9BD2BECA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFEC893A-366A-49EE-84E4-BF9BD2BECA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFEC893A-366A-49EE-84E4-BF9BD2BECA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFEC893A-366A-49EE-84E4-BF9BD2BECA04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1DA007-018E-4F34-8B92-355C9B66840E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1DA007-018E-4F34-8B92-355C9B66840E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1DA007-018E-4F34-8B92-355C9B66840E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1DA007-018E-4F34-8B92-355C9B66840E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

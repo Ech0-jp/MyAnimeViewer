@@ -1,0 +1,24 @@
+﻿<controls:MetroWindow x:Class="MyAnimeViewer.Windows.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:MyAnimeViewer.Windows"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:error="clr-namespace:MyAnimeViewer.Errors"
+                      xmlns:windows="clr-namespace:MyAnimeViewer.Windows"
+                      mc:Ignorable="d"
+                      Title="MainWindow" Height="500" Width="815" MinHeight="500" MinWidth="815"
+                      Closing="MetroWindow_Closing" ShowIconOnTitleBar="True" LeftWindowCommandsOverlayBehavior="Never"
+                      RightWindowCommandsOverlayBehavior="Never" WindowButtonCommandsOverlayBehavior="Never" WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl Margin="{Binding TitleBarMargin, RelativeSource={RelativeSource AncestorType=windows:MainWindow}}">
+            <controls:Flyout x:Name="FlyoutErrors" Position="Top" Header="Errors">
+                <error:ErrorList DataContext="{Binding Errors, RelativeSource={RelativeSource AncestorType=windows:MainWindow}}" VerticalAlignment="Center" MaxHeight="400"/>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+    <Grid>
+        <controls:TransitioningContentControl x:Name="tContent" Transition="Default" />
+    </Grid>
+</controls:MetroWindow>
