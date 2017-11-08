@@ -1,23 +1,37 @@
 # MyAnimeViewer
 
-<b>NOTE:</b><br/>
-This is the <i>early alpha build</i> of the application. It is still very ugly, unoptomized, and some/most features are still a WIP or have yet to be implemented.
+MyAnimeViewer is a pluggable and customizable desktop application that tries to bring together all aspects of anime into one package. It achieves this with a plugin based architecture allowing for any number of Anime List and Simulcast platforms to be incorporated into an easy to manage, user-friendly package. 
 
-MyAnimeViewer is an application that aims to make watching and tracking anime easier by combining popular anime databases such as MyAnimeList, AniList, etc., with popular streaming/simulcast platforms such as Crunchyroll, Funimation, etc. MAV acheives this by keeping all your platforms in one place, and automatically updating your list when needed. Features such as customizing your lists appearance to your taste, getting notifactions when new episodes are released and when a show that is "Planned to Watch" is released make life a lot easier.
+<br/>
 
-<b>Current Features:</b>
-  - Adding/Editing list entries from AniList
-  - Browsing AniList
-  - Watch episodes on Kissanime. (Feature is buggy and will be changed in future iterations/switched to a different platform)
- 
-<b>Planned Features:</b>
-  - Supporting MyAnimeList and Crunchyroll
-  - Browse a Seasonal Anime chart
-  - Receive notifications for:
-    - New episode released for an anime in "Currently Watching"
-    - When a series goes live when under "Planned to Watch"
-  - Edit layout/style of Anime List.
-  - Implement Manga support.
+<h1><b>Features</b></h1>
+  - Create or add plugins for:
+    - Anime List Databases such as MyAnimeList.net
+    - Simulcast Platforms such as Crunchyroll.com
+    - Interfaces to change the appearance to suit your tastes.
+  - Directly edit and manage your list from various sites within the application.
+  - Watch anime from various sites within the application.
+  - Automatic management of your list such as:
+    - Updating the entries "watched episodes" everytime you watch a new episode.
+    - Adjusting the entries "status" whenever you re-watch or complete a series.
+    - Add a new entry to your list as soon as you start watching a new series.
+  - Browse new and old anime.
+  - Browse seasonal anime.
+  - Recieve a notification for:
+    - When a currently watching series recieves a new episode.
+    - When a planned to watch series is now airing.
+    
+<br/>
 
-<b>Current Status:</b><br/>
-MyAnimeViewer is being rewritten for optimization purposes and to support plugins. Why it is being rewritten is mostley due to the poor structure and coding. The current build was mostley a learning run for me as I was new to developing desktop applications and was new to WPF. It is now being rewritten with the use of proper documentation, class diagrams, use case diagrams, activity diagrams and wireframes.
+<h1><b>Planned Features</b></h1>
+  - Including support for:
+    - Manga.
+    - Mac.
+    - Linux.
+    - IOS.
+    - Android.
+
+<br/>
+
+<h1><b>Notes:</b></h1>
+MyAnimeViewer is still in pre-release. Many features included have yet to implemented or do not work/are unoptimized.
