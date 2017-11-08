@@ -2,12 +2,10 @@
 
 MyAnimeViewer is a pluggable and customizable desktop application that tries to bring together all aspects of anime into one package. It achieves this with a plugin based architecture allowing for any number of Anime List and Simulcast platforms to be incorporated into an easy to manage, user-friendly package. 
 
-<br/>
-
-<h1><b>Features</b></h1>
+## Features
   - Create or add plugins for:
-    - Anime List Databases such as MyAnimeList.net
-    - Simulcast Platforms such as Crunchyroll.com
+    - Anime List Databases such as [MyAnimeList](https://myanimelist.net/).
+    - Simulcast Platforms such as [Crunchyroll](http://www.crunchyroll.com/).
     - Interfaces to change the appearance to suit your tastes.
   - Directly edit and manage your list from various sites within the application.
   - Watch anime from various sites within the application.
@@ -21,9 +19,7 @@ MyAnimeViewer is a pluggable and customizable desktop application that tries to 
     - When a currently watching series recieves a new episode.
     - When a planned to watch series is now airing.
     
-<br/>
-
-<h1><b>Planned Features</b></h1>
+## Planned Features
   - Including support for:
     - Manga.
     - Mac.
@@ -31,7 +27,5 @@ MyAnimeViewer is a pluggable and customizable desktop application that tries to 
     - IOS.
     - Android.
 
-<br/>
-
-<h1><b>Notes:</b></h1>
+## Notes
 MyAnimeViewer is still in pre-release. Many features included have yet to implemented or do not work/are unoptimized.
