@@ -7,7 +7,16 @@ namespace MyAnimeViewer.Windows.UserControls
     {
         public IAnimeInformationUserInterface AnimeInformation { get { return null; } }
 
-        public IAnimeListUserInterface AnimeList { get { return new AnimeListUserControl(); } }
+        private AnimeListUserControl _animeList;
+        public IAnimeListUserInterface AnimeList
+        {
+            get
+            {
+                if (_animeList == null)
+                    _animeList = new AnimeListUserControl();
+                return _animeList;
+            }
+        }
 
         public IBrowseAnimeUserInterface BrowseAnime { get { return null; } }
 

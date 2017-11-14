@@ -110,7 +110,12 @@ namespace MyAnimeViewer.Utility.Database
 
         public DbDataAdapter CreateDataAdapter()
         {
-            return DbProviderFactories.GetFactory(connection).CreateDataAdapter();
+            var factory = DbProviderFactories.GetFactory(connection);
+            var adapter = factory.CreateDataAdapter();
+            adapter.SelectCommand = factory.CreateCommand();
+            adapter.SelectCommand.Connection = connection;
+            //return DbProviderFactories.GetFactory(connection).CreateDataAdapter();
+            return adapter;
         }
 
         // ********************************************************************************************
