@@ -12,6 +12,7 @@ using MyAnimeViewer.Windows.UserControls;
 using MyAnimeViewer.Utility.Logging;
 using MyAnimeViewer.Controls;
 using System.IO;
+using MyAnimeViewerInterfaces.GUI;
 
 namespace MyAnimeViewer.Windows
 {
@@ -46,7 +47,7 @@ namespace MyAnimeViewer.Windows
         {
             this.primaryPlugin = primaryPlugin;
             PluginSettings.Load(primaryPlugin.Plugin);
-            Transition(AnimeListAdapter.Instance.View);
+            Transition(InterfaceType.AnimeList);
             return Task.CompletedTask;
         }
 
@@ -54,20 +55,24 @@ namespace MyAnimeViewer.Windows
         /// Change the displayed content in the main window.
         /// </summary>
         /// <param name="content">Next content to display.</param>
-        public void Transition(UserControl content)
+        public void Transition(InterfaceType target)
         {
-            tContent.Content = content;
+            switch (target)
+            {
+                case InterfaceType.AnimeList:
+                    tContent.Content = AnimeListAdapter.Instance.View;
+                    break;
+                case InterfaceType.AnimeInformation:
+                    throw new NotImplementedException();
+                case InterfaceType.BrowseAnime:
+                    throw new NotImplementedException();
+                case InterfaceType.Simulcast:
+                    throw new NotImplementedException();
+                default:
+                    ErrorManager.AddError("Error resolving targeted page.", "Unable to resolve target interface.", true);
+                    break;
+            }
         }
-
-        #region TransitionEventHandlers
-        /// <summary>
-        /// The event fired when a plugin requests to view an anime's information.
-        /// </summary>
-        public void OnViewAnimeInformation(object sender, EventArgs args)
-        {
-            
-        }
-        #endregion
 
         #region Errors
         public ObservableCollection<Error> Errors => ErrorManager.Errors;

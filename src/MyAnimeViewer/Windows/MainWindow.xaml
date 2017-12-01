@@ -19,6 +19,6 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
     <Grid>
-        <controls:TransitioningContentControl x:Name="tContent" Transition="Default" />
+        <controls:TransitioningContentControl x:Name="tContent" Transition="LeftReplace" />
     </Grid>
 </controls:MetroWindow>

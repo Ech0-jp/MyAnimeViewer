@@ -65,6 +65,7 @@
     <Compile Include="Plugin\AnimeDB.cs" />
     <Compile Include="Plugin\AnimeDBList.cs" />
     <Compile Include="Plugin\AnimeDBLogin.cs" />
+    <Compile Include="Plugin\AnimeDBSeriesModel.cs" />
     <Compile Include="Plugin\AnimeDBUser.cs" />
     <Compile Include="Plugin\AnimeDBUserEntry.cs" />
     <Compile Include="Plugin\PluginSettings.cs" />

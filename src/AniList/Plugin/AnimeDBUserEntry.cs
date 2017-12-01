@@ -1,6 +1,7 @@
 ﻿using AniList.Enums;
 using MyAnimeViewerInterfaces.AnimeDB;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace AniList.Plugin
 {
@@ -34,6 +35,7 @@ namespace AniList.Plugin
         {
             list_name = ListName;
             JObject anime = (JObject)entry.Property("anime").Value;
+            id = Convert.ToInt32(anime.Property("id").Value);
             switch ((Core.PluginController.AnimeDB.user as AnimeDBUser).TitleLanguage)
             {
                 case TitleLanguage.English:

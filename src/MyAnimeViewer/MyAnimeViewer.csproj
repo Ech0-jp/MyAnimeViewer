@@ -108,8 +108,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\AnimeInformationAdapter.cs" />
     <Compile Include="Controls\AnimeListAdapter.cs" />
+    <Compile Include="Controls\BrowseAnimeAdapter.cs" />
     <Compile Include="Utility\AES.cs" />
+    <Compile Include="Utility\Converters\NumberDisplayConverter.cs" />
     <Compile Include="Utility\Database\AnimeEntry.cs" />
     <Compile Include="Utility\Database\DatabaseAdapter.cs" />
     <Compile Include="Utility\Helper.cs" />
@@ -144,6 +147,9 @@
     </Compile>
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UserControls\AnimeInformationUserControl.xaml.cs">
+      <DependentUpon>AnimeInformationUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UserControls\AnimeListUserControl.xaml.cs">
       <DependentUpon>AnimeListUserControl.xaml</DependentUpon>
@@ -209,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SplashScreenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserControls\AnimeInformationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

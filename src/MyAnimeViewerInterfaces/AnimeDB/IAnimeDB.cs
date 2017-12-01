@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 
 namespace MyAnimeViewerInterfaces.AnimeDB
 {
@@ -24,5 +25,12 @@ namespace MyAnimeViewerInterfaces.AnimeDB
         /// The authenticated user's information.
         /// </summary>
         IAnimeDBUser user { get; }
+
+        /// <summary>
+        /// Get the series model for an anime by ID.
+        /// </summary>
+        /// <param name="id">The ID of the series.</param>
+        /// <returns>The series model for the anime.</returns>
+        Task<IAnimeDBSeriesModel> GetSeriesModel(int id);
     }
 }

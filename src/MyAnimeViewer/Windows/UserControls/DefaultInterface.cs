@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace MyAnimeViewer.Windows.UserControls
 {
-    class DefaultInterface : IUserInterface
+    public class DefaultInterface : IUserInterface
     {
         public IAnimeInformationUserInterface AnimeInformation { get { return null; } }
 

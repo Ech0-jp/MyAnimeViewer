@@ -1,40 +1,37 @@
 ﻿using MyAnimeViewer.Plugins;
-using MyAnimeViewer.Utility.Database;
-using MyAnimeViewer.Windows.UserControls;
 using MyAnimeViewerInterfaces.GUI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace MyAnimeViewer.Controls
 {
-    public class AnimeListAdapter
+    public class AnimeInformationAdapter
     {
-        private static AnimeListAdapter _instance;
-        public static AnimeListAdapter Instance
+        private static AnimeInformationAdapter _instance;
+        public static AnimeInformationAdapter Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new AnimeListAdapter();
+                    _instance = new AnimeInformationAdapter();
                 return _instance;
             }
         }
 
-        public DatabaseAdapter Adapter { get; private set; }
         private IUserInterface Interface;
         public UserControl View
         {
             get { return Interface.GetView(InterfaceType.AnimeList); }
         }
 
-        private AnimeListAdapter()
+        private AnimeInformationAdapter()
         {
             if (Config.Instance.UserInterfacePlugin == "Default")
-            {
                 Interface = Core.DefaultInterface;
-            }
             else
             {
                 var plugin = PluginManager.Instance.Plugins.Where(p => p.Name == Config.Instance.UserInterfacePlugin).FirstOrDefault();
@@ -46,26 +43,16 @@ namespace MyAnimeViewer.Controls
                     Interface = plugin.Plugin.UserInterface;
                 }
             }
-            Adapter = new DatabaseAdapter();
-            Adapter.InitializeDatabase(Core.MainWindow.primaryPlugin);
-
-            Interface.AnimeList.OnEditAnime += AnimeList_OnEditAnime;
-            Interface.AnimeList.OnViewAnimeInformation += AnimeList_OnViewAnimeInformation;
-            Interface.AnimeList.OnWatchAnime += AnimeList_OnWatchAnime;
-            Interface.AnimeList.BindList(Adapter.CreateDataAdapter());
+            Interface.AnimeInformation.OnEditAnime += AnimeInformation_OnEditAnime;
+            Interface.AnimeInformation.OnWatchAnime += AnimeInformation_OnWatchAnime;
         }
 
-        private void AnimeList_OnEditAnime(object sender, AnimeEventArgs e)
+        private void AnimeInformation_OnEditAnime(object sender, AnimeEventArgs e)
         {
             throw new NotImplementedException();
         }
-        
-        private void AnimeList_OnViewAnimeInformation(object sender, AnimeEventArgs e)
-        {
-            MessageBox.Show(e.id.ToString());
-        }
 
-        private void AnimeList_OnWatchAnime(object sender, AnimeEventArgs e)
+        private void AnimeInformation_OnWatchAnime(object sender, AnimeEventArgs e)
         {
             throw new NotImplementedException();
         }

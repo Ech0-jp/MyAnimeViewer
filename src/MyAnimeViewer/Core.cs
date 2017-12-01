@@ -2,12 +2,10 @@
 using MyAnimeViewer.Utility;
 using MyAnimeViewer.Utility.Logging;
 using MyAnimeViewer.Windows;
-using MyAnimeViewerInterfaces.GUI;
+using MyAnimeViewer.Windows.UserControls;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MyAnimeViewer
 {
@@ -15,6 +13,7 @@ namespace MyAnimeViewer
     {
         private static MainWindow _mainWindow;
         private static SplashScreenWindow _splashScreenWindow;
+        private static DefaultInterface _defaultInterface;
 
         public static Version Version { get; set; }
         public static MainWindow MainWindow
@@ -33,6 +32,15 @@ namespace MyAnimeViewer
                 if (_splashScreenWindow == null || _splashScreenWindow.IsLoaded == false)
                     _splashScreenWindow = new SplashScreenWindow();
                 return _splashScreenWindow;
+            }
+        }
+        public static DefaultInterface DefaultInterface
+        {
+            get
+            {
+                if (_defaultInterface == null)
+                    _defaultInterface = new DefaultInterface();
+                return _defaultInterface;
             }
         }
 

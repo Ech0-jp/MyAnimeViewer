@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyAnimeViewer.Windows.UserControls"
+             xmlns:util="clr-namespace:MyAnimeViewer.Utility.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="815">
     <UserControl.Resources>
+        <util:NumberDisplayConverter x:Key="NumberDisplayConverter" />
+
         <Style x:Key="HideHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
@@ -17,25 +20,22 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="HeaderButton" TargetType="{x:Type Button}">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <Style x:Key="FlatButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MetroFlatButton}" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="sp_List" Grid.Row="0">
-            
+        <StackPanel x:Name="sp_List" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="0,5,5,5" Tag="all" Content="All Anime" Click="FilterList_OnClick" />
+            <Button Margin="0,5,5,5" Tag="watching"  Content="Currently Watching" Click="FilterList_OnClick" />
+            <Button Margin="0,5,5,5" Tag="completed" Content="Completed" Click="FilterList_OnClick" />
+            <Button Margin="0,5,5,5" Tag="on-hold" Content="On-Hold" Click="FilterList_OnClick" />
+            <Button Margin="0,5,5,5" Tag="dropped" Content="Dropped" Click="FilterList_OnClick" />
+            <Button Margin="0,5" Tag="plan to watch" Content="Plan to Watch" Click="FilterList_OnClick" />
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -52,12 +52,15 @@
                     <ColumnDefinition Width="75" />
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btn_Image" Grid.Column="0" Content="Image" />
-                <Button x:Name="btn_Title" Tag="title" Grid.Column="1" Content="Title" Click="SortList_OnClick" />
-                <Button x:Name="btn_Score" Tag="score" Grid.Column="2" Content="Score" Click="SortList_OnClick" />
-                <Button x:Name="btn_Type" Tag="media_type" Grid.Column="3" Content="Type" Click="SortList_OnClick" />
-                <Button x:Name="btn_Episodes" Tag="episodes_watched" Grid.Column="4" Content="Progress" Click="SortList_OnClick" />
+                <Grid x:Name="btn_Image" Grid.Column="0" Background="LightGray">
+                    <TextBlock Text="Image" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
+                <Button x:Name="btn_Title" Tag="title" Grid.Column="1" Content="Title" Cursor="Hand" Click="SortList_OnClick" Style="{StaticResource FlatButton}" />
+                <Button x:Name="btn_Score" Tag="score" Grid.Column="2" Content="Score" Cursor="Hand" Click="SortList_OnClick" Style="{StaticResource FlatButton}" />
+                <Button x:Name="btn_Type" Tag="media_type" Grid.Column="3" Content="Type" Cursor="Hand" Click="SortList_OnClick" Style="{StaticResource FlatButton}" />
+                <Button x:Name="btn_Episodes" Tag="episodes_watched" Grid.Column="4" Content="Progress" Cursor="Hand" Click="SortList_OnClick" Style="{StaticResource FlatButton}" />
             </Grid>
+            <Grid Grid.Column="1" Background="LightGray"/>
         </Grid>
         
         <ListView x:Name="lv_Main" Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" >
@@ -84,11 +87,12 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="{Binding TableName}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
-                                    <ListView ItemsSource="{Binding DefaultView}" BorderThickness="0" HorizontalAlignment="Center" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListView_PreviewMouseWheel">
+                                    <ListView ItemsSource="{Binding DefaultView}" Focusable="False" BorderThickness="0" HorizontalAlignment="Center" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="ListView_PreviewMouseWheel">
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="ListViewItem">
                                                 <Setter Property="Focusable" Value="False" />
                                                 <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -98,6 +102,7 @@
                                                         </ControlTemplate>
                                                     </Setter.Value>
                                                 </Setter>
+                                                <Setter Property="Margin" Value="-6, 2.5" />
                                             </Style>
                                         </ListView.ItemContainerStyle>
 
@@ -107,7 +112,7 @@
                                                 <GridViewColumn Width="{Binding ElementName=btn_Image, Path=ActualWidth}">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Button Width="50" Height="70" HorizontalAlignment="Center" Cursor="Hand">
+                                                            <Button Tag="{Binding id}" Width="50" Height="70" HorizontalAlignment="Center" Cursor="Hand" Click="ViewAnime_Click">
                                                                 <Button.Template>
                                                                     <ControlTemplate>
                                                                         <Image Source="{Binding image_url}" />
@@ -129,7 +134,7 @@
                                                                 </Grid.ColumnDefinitions>
 
                                                                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                                    <TextBlock Name="tb_Title" Text="{Binding title}" FontSize="14" TextWrapping="Wrap" Width="Auto" Margin="10,0" />
+                                                                    <TextBlock Name="tb_Title" Text="{Binding title}" FontSize="14" TextWrapping="Wrap" Width="Auto" Margin="10,0" Style="{StaticResource HoverUnderlineStyle}" MouseUp="tb_Title_MouseUp" />
                                                                     <!-- IF Series has yet to be aired, hide btn_Play and show tb_NotYetAired and vise versa -->
                                                                     <!-- btn_play -->
                                                                     <!-- tb_NotYetAired -->
@@ -151,7 +156,10 @@
                                                 <GridViewColumn Width="{Binding ElementName=btn_Score, Path=ActualWidth}">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock Text="{Binding score}" HorizontalAlignment="Center" Cursor="Hand" Style="{StaticResource HoverUnderlineStyle}" />
+                                                            <Grid>
+                                                                <TextBlock Tag="{Binding id}" Text="{Binding Path=score, Converter={StaticResource NumberDisplayConverter}}" Margin="0" TextAlignment="Center" Cursor="Hand" Style="{StaticResource HoverUnderlineStyle}" MouseDown="EditScore_MouseDown" />
+                                                                <TextBox Tag="{Binding id}" Margin="0" TextAlignment="Center" Visibility="Collapsed" PreviewTextInput="EditScore_PreviewTextInput" />
+                                                            </Grid>
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>
@@ -160,7 +168,7 @@
                                                 <GridViewColumn Width="{Binding ElementName=btn_Type, Path=ActualWidth}">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock Text="{Binding media_type}" />
+                                                            <TextBlock Text="{Binding media_type}" TextAlignment="Center" />
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>
@@ -169,14 +177,15 @@
                                                 <GridViewColumn Width="{Binding ElementName=btn_Episodes, Path=ActualWidth}">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock>
-                                                                <TextBlock.Text>
-                                                                    <MultiBinding StringFormat="{}{0} / {1}">
-                                                                        <Binding Path="episodes_watched" />
-                                                                        <Binding Path="total_episodes" />
-                                                                    </MultiBinding>
-                                                                </TextBlock.Text>
-                                                            </TextBlock>
+                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                <TextBlock Tag="{Binding id}" Text="{Binding episodes_watched}" Style="{StaticResource HoverUnderlineStyle}" Cursor="Hand" MouseDown="Progress_MouseDown" />
+                                                                <TextBlock>
+                                                                    <TextBlock.Text>
+                                                                        <Binding StringFormat=" / {0}" Path="total_episodes" />
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                                <TextBox Tag="{Binding id}" Margin="5" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" TextAlignment="Center" Visibility="Collapsed" PreviewTextInput="Progress_PreviewTextInput" />
+                                                            </StackPanel>
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>

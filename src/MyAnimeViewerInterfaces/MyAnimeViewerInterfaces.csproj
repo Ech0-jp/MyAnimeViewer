@@ -43,15 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimeDB\DataTypes\SeriesStatus.cs" />
     <Compile Include="AnimeDB\IAnimeDB.cs" />
     <Compile Include="AnimeDB\IAnimeDBList.cs" />
     <Compile Include="AnimeDB\IAnimeDBLogin.cs" />
     <Compile Include="AnimeDB\IAnimeDBSeriesModel.cs" />
     <Compile Include="AnimeDB\IAnimeDBUser.cs" />
     <Compile Include="AnimeDB\IAnimeDBUserEntry.cs" />
-    <Compile Include="AnimeDB\LoginInformation.cs" />
-    <Compile Include="AnimeDB\LoginType.cs" />
+    <Compile Include="AnimeDB\DataTypes\LoginInformation.cs" />
+    <Compile Include="AnimeDB\DataTypes\LoginType.cs" />
     <Compile Include="GUI\AnimeEventArgs.cs" />
+    <Compile Include="GUI\AnimeEventHandler.cs" />
     <Compile Include="GUI\IAnimeInformationUserInterface.cs" />
     <Compile Include="GUI\IAnimeListUserInterface.cs" />
     <Compile Include="GUI\IBrowseAnimeUserInterface.cs" />
